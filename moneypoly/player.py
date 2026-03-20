@@ -11,10 +11,12 @@ class Player:
         self.balance = balance
         self.position = 0
         self.properties = []
-        self.in_jail = False
-        self.jail_turns = 0
-        self.get_out_of_jail_cards = 0
         self.is_eliminated = False
+        self.jail = {
+            "in_jail": False,
+            "jail_turns": 0,
+            "free_cards": 0,
+        }
 
 
     def add_money(self, amount):
@@ -54,8 +56,8 @@ class Player:
     def go_to_jail(self):
         """Send this player directly to the Jail square."""
         self.position = JAIL_POSITION
-        self.in_jail = True
-        self.jail_turns = 0
+        self.jail["in_jail"] = True
+        self.jail["jail_turns"] = 0
 
 
     def add_property(self, prop):
@@ -75,7 +77,7 @@ class Player:
 
     def status_line(self):
         """Return a concise one-line status string for this player."""
-        jail_tag = " [JAILED]" if self.in_jail else ""
+        jail_tag = " [JAILED]" if self.jail["in_jail"] else ""
         return (
             f"{self.name}: ${self.balance}  "
             f"pos={self.position}  "
