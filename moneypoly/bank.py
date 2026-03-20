@@ -1,4 +1,4 @@
-import math
+"""Defining the Bank class, which manages the game's finances and loan system."""
 from moneypoly.config import BANK_STARTING_FUNDS
 
 
