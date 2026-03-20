@@ -1,4 +1,4 @@
-import os
+"""Main game logic and flow control for MoneyPoly."""
 
 from config import (
     GO_TO_JAIL_POSITION,
