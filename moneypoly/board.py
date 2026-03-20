@@ -1,4 +1,4 @@
-from moneypoly.property import Property, PropertyGroup
+from property import Property, PropertyGroup
 from moneypoly.config import (
     JAIL_POSITION,
     GO_TO_JAIL_POSITION,
