@@ -327,18 +327,11 @@ class Game:
                 if prop:
                     self._handle_property_tile(player, prop)
 
-        elif action == "birthday":
+        elif action == ("birthday", "collect_from_all"):
             for other in self.players:
                 if other != player and other.balance >= value:
                     other.deduct_money(value)
                     player.add_money(value)
-
-        elif action == "collect_from_all":
-            for other in self.players:
-                if other != player and other.balance >= value:
-                    other.deduct_money(value)
-                    player.add_money(value)
-
 
     def _check_bankruptcy(self, player):
         """Eliminate `player` from the game if they are bankrupt."""
