@@ -1,7 +1,6 @@
 """Main game logic and flow control for MoneyPoly."""
 
 from config import (
-    GO_TO_JAIL_POSITION,
     JAIL_FINE,
     AUCTION_MIN_INCREMENT,
     INCOME_TAX_AMOUNT,
