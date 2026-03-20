@@ -1,5 +1,5 @@
 from property import Property, PropertyGroup
-from moneypoly.config import (
+from config import (
     JAIL_POSITION,
     GO_TO_JAIL_POSITION,
     FREE_PARKING_POSITION,
