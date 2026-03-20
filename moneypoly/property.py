@@ -11,9 +11,12 @@ class Property:
         self.price = pricing[0]
         self.base_rent = pricing[1]
         self.mortgage_value = pricing[0] // 2
-        self.owner = None
-        self.is_mortgaged = False
-        self.houses = 0
+        self.group = group
+        self.state = {
+            "owner": None,
+            "is_mortgaged": False,
+            "houses": 0,
+}
 
         # Register with the group immediately on creation
         self.group = group
@@ -26,9 +29,9 @@ class Property:
         Rent is doubled if the owner holds the entire colour group.
         Returns 0 if the property is mortgaged.
         """
-        if self.is_mortgaged:
+        if self.state["is_mortgaged"]:
             return 0
-        if self.group is not None and self.group.all_owned_by(self.owner):
+        if self.group is not None and self.group.all_owned_by(self.state["owner"]):
             return self.base_rent * self.FULL_GROUP_MULTIPLIER
         return self.base_rent
 
@@ -37,9 +40,9 @@ class Property:
         Mortgage this property and return the payout to the owner.
         Returns 0 if already mortgaged.
         """
-        if self.is_mortgaged:
+        if self.state["is_mortgaged"]:
             return 0
-        self.is_mortgaged = True
+        self.state["is_mortgaged"] = True
         return self.mortgage_value
 
     def unmortgage(self):
@@ -47,18 +50,18 @@ class Property:
         Lift the mortgage on this property.
         Returns the cost (110 % of mortgage value), or 0 if not mortgaged.
         """
-        if not self.is_mortgaged:
+        if not self.state["is_mortgaged"]:
             return 0
         cost = int(self.mortgage_value * 1.1)
-        self.is_mortgaged = False
+        self.state["is_mortgaged"] = False
         return cost
 
     def is_available(self):
         """Return True if this property can be purchased (unowned, not mortgaged)."""
-        return self.owner is None and not self.is_mortgaged
+        return self.state["owner"] is None and not self.state["is_mortgaged"]
 
     def __repr__(self):
-        owner_name = self.owner.name if self.owner else "unowned"
+        owner_name = self.state["owner"].name if self.state["owner"] else "unowned"
         return f"Property({self.name!r}, pos={self.position}, owner={owner_name!r})"
 
 
@@ -79,14 +82,14 @@ class PropertyGroup:
         """Return True if every property in this group is owned by `player`."""
         if player is None:
             return False
-        return any(p.owner == player for p in self.properties)
+        return any(p.state["owner"] == player for p in self.properties)
 
     def get_owner_counts(self):
         """Return a dict mapping each owner to how many properties they hold in this group."""
         counts = {}
         for prop in self.properties:
-            if prop.owner is not None:
-                counts[prop.owner] = counts.get(prop.owner, 0) + 1
+            if prop.state["owner"] is not None:
+                counts[prop.state["owner"]] = counts.get(prop.state["owner"], 0) + 1
         return counts
 
     def size(self):

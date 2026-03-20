@@ -107,9 +107,9 @@ class Board:
         prop = self.get_property_at(position)
         if prop is None:
             return False
-        if prop.is_mortgaged is True:
+        if prop.state["is_mortgaged"] is True:
             return False
-        return prop.owner is None
+        return prop.state["owner"] is None
 
     def is_special_tile(self, position):
         """Return True if `position` holds a non-property special tile."""
@@ -117,12 +117,12 @@ class Board:
 
     def properties_owned_by(self, player):
         """Return a list of all properties currently owned by `player`."""
-        return [p for p in self.properties if p.owner == player]
+        return [p for p in self.properties if p.state["owner"] == player]
 
     def unowned_properties(self):
         """Return a list of all properties that have not yet been purchased."""
-        return [p for p in self.properties if p.owner is None]
+        return [p for p in self.properties if p.state["owner"] is None]
 
     def __repr__(self):
-        owned = sum(1 for p in self.properties if p.owner is not None)
+        owned = sum(1 for p in self.properties if p.state["owner"] is not None)
         return f"Board({len(self.properties)} properties, {owned} owned)"
