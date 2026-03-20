@@ -58,7 +58,7 @@ COMMUNITY_CHEST_CARDS = [
      "action": "collect",
      "value": 200
      },
-    {"description": "Doctor's fees. Pay $50.", 
+    {"description": "Doctor's fees. Pay $50.",
      "action": "pay",
      "value": 50
     },
