@@ -1,3 +1,5 @@
+"""Represents the game board, tiles, and properties."""
+
 from property import Property, PropertyGroup
 from config import (
     JAIL_POSITION,
