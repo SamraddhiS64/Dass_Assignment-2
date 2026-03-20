@@ -1,3 +1,5 @@
+"""Simulates rolling two six-sided dice and tracks consecutive doubles."""
+
 import random
 
 class Dice:
