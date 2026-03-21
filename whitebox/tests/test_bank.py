@@ -21,3 +21,35 @@ class TestGetBalance:
         b = Bank()
         b.collect(1000)
         assert b.get_balance() == BANK_STARTING_FUNDS + 1000
+
+class TestCollect:
+
+    def test_collect_positive(self):
+        """Normal case, increases bank funds."""
+        b = Bank()
+        initial = b.get_balance()
+        b.collect(500)
+        assert b.get_balance() == initial + 500
+
+    def test_collect_zero(self):
+        """Edge case, balance unchanged."""
+        b = Bank()
+        initial = b.get_balance()
+        b.collect(0)
+        assert b.get_balance() == initial
+
+    def test_collect_negative(self):
+        """ BUG TEST — docstring says negative amounts are silently ignored
+        but code does self._funds += amount which reduces funds.
+        """
+        b = Bank()
+        initial = b.get_balance()
+        b.collect(-100)
+        assert b.get_balance() == initial
+
+    def test_collect_large_amount(self):
+        """Edge case, very large amount"""
+        b = Bank()
+        initial = b.get_balance()
+        b.collect(999999)
+        assert b.get_balance() == initial + 999999
