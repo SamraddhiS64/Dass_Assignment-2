@@ -153,3 +153,41 @@ class TestGiveLoan:
         b.give_loan(p2, 300)
         assert b.loan_count() == 2
         assert b.total_loans_issued() == 500
+
+class TestTotalLoansIssued:
+
+    def test_no_loans(self):
+        """Edge case, no loans issued, total is 0."""
+        b = Bank()
+        assert b.total_loans_issued() == 0
+
+    def test_single_loan(self):
+        """Normal case, single loan recorded correctly."""
+        b = Bank()
+        p = Player("Alice")
+        b.give_loan(p, 400)
+        assert b.total_loans_issued() == 400
+
+    def test_multiple_loans(self):
+        """multiple loans summed correctly."""
+        b = Bank()
+        p = Player("Alice")
+        b.give_loan(p, 100)
+        b.give_loan(p, 200)
+        b.give_loan(p, 300)
+        assert b.total_loans_issued() == 600
+
+class TestLoanCount:
+
+    def test_no_loans(self):
+        """Edge case, no loans, count is 0."""
+        b = Bank()
+        assert b.loan_count() == 0
+
+    def test_increments(self):
+        """count increases with each loan."""
+        b = Bank()
+        p = Player("Alice")
+        b.give_loan(p, 100)
+        b.give_loan(p, 200)
+        assert b.loan_count() == 2
