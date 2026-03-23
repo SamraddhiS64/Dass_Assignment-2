@@ -3,7 +3,6 @@ import os
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../moneypoly'))
 
 from moneypoly.board import Board, SPECIAL_TILES
 from moneypoly.player import Player
