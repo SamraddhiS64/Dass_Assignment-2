@@ -1,21 +1,11 @@
-"""
-QuickCart API - Comprehensive Black-Box Test Suite
-===================================================
-Run with:  pytest test_quickcart.py -v
-Requires:  pip install pytest requests
-
-Server must be running at http://localhost:8080
-Start with: docker run -p 8080:8080 quickcart:latest
-"""
-
 import pytest
 import requests
 
 BASE_URL = "http://localhost:8080/api/v1"
 
-ROLL     = {"X-Roll-Number": "2024115015"}          # valid roll number
-USER_1   = {**ROLL, "X-User-ID": "25"}          # user 1  (exists in seed data)
-USER_999 = {**ROLL, "X-User-ID": "999999"}     # user that almost certainly doesn't exist
+ROLL     = {"X-Roll-Number": "2024115015"}         
+USER_1   = {**ROLL, "X-User-ID": "25"}          
+USER_999 = {**ROLL, "X-User-ID": "999999"}     
 
 
 def get(path, headers=USER_1, **kw):
@@ -142,9 +132,7 @@ class TestAdmin:
         assert isinstance(r.json(), list)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 3.  PROFILE
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestProfile:
 
@@ -218,9 +206,7 @@ class TestProfile:
         assert r.status_code == 400, "Missing phone must be 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 4.  ADDRESSES
-# ══════════════════════════════════════════════════════════════════════════════
 
 VALID_ADDRESS = {
     "label": "HOME",
@@ -359,9 +345,7 @@ class TestAddresses:
             assert r.status_code in (200, 201), f"Label '{label}' must be accepted"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 5.  PRODUCTS
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestProducts:
 
@@ -453,13 +437,11 @@ class TestProducts:
         assert not overlap, f"Inactive product IDs appeared in public list: {overlap}"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 6.  CART
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestCart:
 
-    PRODUCT_ID = 1   # Seeded product — Apple Red, price 120, stock 195
+    PRODUCT_ID = 1  
 
     def _clear(self):
         delete("/cart/clear")
@@ -586,9 +568,7 @@ class TestCart:
         assert r.status_code == 400, "String quantity must return 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 7.  COUPONS
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestCoupons:
     """
@@ -693,9 +673,7 @@ class TestCoupons:
         assert r.status_code == 400, "FLASH25 is expired, must return 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 8.  CHECKOUT
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestCheckout:
 
@@ -783,9 +761,7 @@ class TestCheckout:
                 "WALLET checkout must set payment_status to PENDING"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 9.  WALLET
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestWallet:
 
@@ -864,9 +840,7 @@ class TestWallet:
         assert r.status_code == 400, "String amount must return 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
 # 10.  LOYALTY POINTS
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestLoyalty:
 
@@ -906,9 +880,9 @@ class TestLoyalty:
         assert r.status_code == 400, "Negative points must return 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 # 11.  ORDERS
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 
 class TestOrders:
 
@@ -1004,9 +978,9 @@ class TestOrders:
             "Invoice total must match order total_amount"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 # 12.  REVIEWS
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 
 class TestReviews:
 
@@ -1109,9 +1083,9 @@ class TestReviews:
         assert r.status_code == 400, "Missing rating must return 400"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 # 13.  SUPPORT TICKETS
-# ══════════════════════════════════════════════════════════════════════════════
+ 
 
 class TestSupportTickets:
 
