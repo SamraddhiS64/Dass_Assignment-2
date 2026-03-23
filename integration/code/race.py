@@ -22,7 +22,7 @@ def enter_driver(race_name, driver_name, car_name):
         return f"Error: car '{car_name}' is not available (damaged or missing)."
     race["drivers"].append(driver_name)
     race["car"] = car_name
-    return f"{driver_name} entered in '{race_name}' with {car_name}."
+    return f"{driver_name} entered '{race_name}' driving {car_name}."
 
 def view_races():
     for r in data.races:
